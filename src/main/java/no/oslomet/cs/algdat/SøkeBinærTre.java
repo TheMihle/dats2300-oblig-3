@@ -92,6 +92,31 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     // Oppgave 1
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi);
+        if (rot == null) {
+            rot = new Node<>(verdi, null);
+            antall++;
+            return true;
+        }
+
+        Node<T> node = rot;
+
+        while (true) {
+            if (comp.compare(verdi, node.verdi) < 0) {
+                if (node.venstre == null) {
+                    node.venstre = new Node<>(verdi,null, null, node);
+                    break;
+                }
+
+                node = node.venstre;
+            } else {
+                if (node.høyre == null) {
+                    node.høyre = new Node<>(verdi, null, null, node);
+                    break;
+                }
+
+                node = node.høyre;
+            }
+        }
 
         antall++;
         return true;
