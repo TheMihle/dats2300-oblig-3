@@ -90,6 +90,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     public boolean tom() { return antall == 0; }
 
     // Oppgave 1
+    // Adds the value to the binary search tree
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi);
         if (rot == null) {
@@ -124,7 +125,27 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
 
     // Oppgave 2
-    public int antall(T verdi){ throw new UnsupportedOperationException(); }
+    // Returns the number of a certain value in the binary search tree
+    public int antall(T verdi){
+        if (verdi == null || rot == null) return 0;
+
+        int numberOfValue = 0;
+        Node<T> node = rot;
+
+        while (node != null) {
+            int comparisonValue = comp.compare(verdi, node.verdi);
+            if (comparisonValue < 0) {
+                node = node.venstre;
+            } else if (comparisonValue > 0) {
+                node = node.høyre;
+            } else {
+                numberOfValue++;
+                node = node.høyre;
+            }
+        }
+
+        return numberOfValue;
+    }
 
     // Oppgave 3
     private Node<T> førstePostorden(Node<T> p) {
