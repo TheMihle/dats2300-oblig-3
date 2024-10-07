@@ -1,6 +1,6 @@
 package no.oslomet.cs.algdat;
 
-import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.StringJoiner;
@@ -90,7 +90,12 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     public boolean tom() { return antall == 0; }
 
     // Oppgave 1
-    public boolean leggInn(T verdi) { throw new UnsupportedOperationException(); }
+    public boolean leggInn(T verdi) {
+        Objects.requireNonNull(verdi);
+
+        antall++;
+        return true;
+    }
 
 
     // Oppgave 2
