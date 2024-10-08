@@ -151,25 +151,17 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     // returns the first node in post order where input node is root
     private Node<T> førstePostorden(Node<T> p) {
         if(p == null) return null;
-        if (p.høyre == null && p.venstre == null) return p;
-        Node<T> node = førstePostorden(p.venstre);
-        if (node == null) {
-            node = førstePostorden(p.venstre);
-        }
-
-        return node;
+        if (p.venstre != null) return førstePostorden(p.venstre);
+        if (p.høyre != null) return førstePostorden(p.høyre);
+        return p;
     }
 
     // Returns the next node in post order
     private Node<T> nestePostorden(Node<T> p) {
-        if(p == null) return null;
-        if (p.høyre == null && p.venstre == null) førstePostorden(p.forelder);
-        Node<T> node = førstePostorden(p.venstre);
-        if (node == null) {
-            node = førstePostorden(p.venstre);
-        }
-
-        return node;
+        if (p.forelder == null) return null;
+        if (p.equals(p.forelder.høyre)) return p.forelder;
+        if (p.forelder.høyre == null) return p.forelder;
+        return førstePostorden(p.forelder.høyre);
     }
 
     // Oppgave 4
