@@ -148,7 +148,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     // Oppgave 3
-    // returns the first node in post order where input node is root
+    // Returns the first node in post order where input node is root with recursion
     private Node<T> førstePostorden(Node<T> p) {
         if(p == null) return null;
         if (p.venstre != null) return førstePostorden(p.venstre);
@@ -156,7 +156,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         return p;
     }
 
-    // Returns the next node in post order
+    // Returns the next node in post order with recursion
     private Node<T> nestePostorden(Node<T> p) {
         if (p.forelder == null) return null;
         if (p.equals(p.forelder.høyre)) return p.forelder;
@@ -165,8 +165,15 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     // Oppgave 4
+    // Do the input task in post order on the binary tree. Using methods from
+    @SuppressWarnings("unchecked")
     public void postOrden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException();
+
+        Node node = førstePostorden(rot);
+        while (node != null) {
+            oppgave.utførOppgave((T) node.verdi);
+            node = nestePostorden(node);
+        }
     }
 
     // Traverses the binary tree recursively from root node, doing the task post order
