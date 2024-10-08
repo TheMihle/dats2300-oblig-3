@@ -148,12 +148,28 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     // Oppgave 3
+    // returns the first node in post order where input node is root
     private Node<T> førstePostorden(Node<T> p) {
-        throw new UnsupportedOperationException();
+        if(p == null) return null;
+        if (p.høyre == null && p.venstre == null) return p;
+        Node<T> node = førstePostorden(p.venstre);
+        if (node == null) {
+            node = førstePostorden(p.venstre);
+        }
+
+        return node;
     }
 
+    // Returns the next node in post order
     private Node<T> nestePostorden(Node<T> p) {
-        throw new UnsupportedOperationException();
+        if(p == null) return null;
+        if (p.høyre == null && p.venstre == null) førstePostorden(p.forelder);
+        Node<T> node = førstePostorden(p.venstre);
+        if (node == null) {
+            node = førstePostorden(p.venstre);
+        }
+
+        return node;
     }
 
     // Oppgave 4
@@ -161,16 +177,30 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         throw new UnsupportedOperationException();
     }
 
+    // Traverses the binary tree recursively from root node, doing the task post order
     public void postOrdenRekursiv(Oppgave<? super T> oppgave) {
         postOrdenRekursiv(rot, oppgave); // Ferdig implementert
     }
 
+    // Traverses the binary tree recursively from input node, doing the task post order
     private void postOrdenRekursiv(Node<T> p, Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException();
+        if (p == null) return;
+
+        postOrdenRekursiv(p.venstre, oppgave);
+        postOrdenRekursiv(p.høyre, oppgave);
+        oppgave.utførOppgave(p.verdi);
     }
 
     // Oppgave 5
-    public boolean fjern(T verdi) { throw new UnsupportedOperationException(); }
-    public int fjernAlle(T verdi) { throw new UnsupportedOperationException(); }
-    public void nullstill() { throw new UnsupportedOperationException(); }
+    public boolean fjern(T verdi) {
+        throw new UnsupportedOperationException();
+    }
+
+    public int fjernAlle(T verdi) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void nullstill() {
+        throw new UnsupportedOperationException();
+    }
 }
