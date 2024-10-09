@@ -104,14 +104,14 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         while (true) {
             if (comp.compare(verdi, node.verdi) < 0) {
                 if (node.venstre == null) {
-                    node.venstre = new Node<>(verdi,null, null, node);
+                    node.venstre = new Node<>(verdi, node);
                     break;
                 }
 
                 node = node.venstre;
             } else {
                 if (node.høyre == null) {
-                    node.høyre = new Node<>(verdi, null, null, node);
+                    node.høyre = new Node<>(verdi, node);
                     break;
                 }
 
@@ -191,15 +191,92 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     // Oppgave 5
+    // Removes the first node with a certain value, makes sure pointers is correct after.
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        Node<T> node = findNode(verdi);
+        if (node == null) return false;
+
+        removeNode(node);
+
+        return true;
     }
 
+    // Removes the input node from the binary tree
+    public void removeNode(Node<T> node) {
+        // If Node doesnt have children
+        if (node.venstre == null && node.høyre == null) {
+            if (node.forelder == null) rot = null;
+            else if (node.forelder.venstre == node) {
+                node.forelder.venstre = null;
+                node.forelder = null;
+            } else {
+                node.forelder.høyre = null;
+                node.forelder = null;
+            }
+            antall--;
+            // If node have one child
+        } else if (node.venstre == null || node.høyre == null) {
+            if (node.venstre == null) {
+                if (node.forelder == null){
+                    rot = node.høyre;
+                } else {
+                    if (node.forelder.venstre == node) {
+                        node.forelder.venstre = node.høyre;
+                    } else {
+                        node.forelder.høyre = node.høyre;
+                    }
+                    node.høyre.forelder = node.forelder;
+                }
+            } else {
+                if (node.forelder == null) {
+                    rot = node.venstre;
+                } else {
+                    if (node.forelder.venstre == node) {
+                        node.forelder.venstre = node.venstre;
+                    } else {
+                        node.forelder.høyre = node.venstre;
+                    }
+                    node.venstre.forelder = node.forelder;
+                }
+            }
+            antall--;
+            // If Node has two children, copy the value of the leftmost node of the right child and remove that node
+//        } else {
+//            Node<T> bottomNode = node.høyre;
+//            while(bottomNode.venstre != null) bottomNode = bottomNode.venstre;
+//            node.verdi = bottomNode.verdi;
+//            removeNode(bottomNode);
+        }
+    }
+
+
+    // Removes All nodes with a certain value. Returns number of nodes removed.
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException();
+        boolean continueRemoving = true;
+        int numberOfRemoved = 0;
+
+        while (continueRemoving) {
+            if (fjern(verdi)) {
+                numberOfRemoved++;
+            } else continueRemoving = false;
+        }
+        return numberOfRemoved;
     }
 
     public void nullstill() {
-        throw new UnsupportedOperationException();
+        while (rot != null) removeNode(førstePostorden(rot));
+    }
+
+    // Finds the first node with a certain value in inorder and returns it.
+    private Node<T> findNode(T value) {
+
+        Node<T> node = rot;
+        while (node != null) {
+            int compValue = comp.compare(value, node.verdi);
+            if (compValue < 0 ) node = node.venstre;
+            else if(compValue > 0) node = node.høyre;
+            else if (comp.compare(value,node.verdi) == 0) return node;
+        }
+        return null;
     }
 }
