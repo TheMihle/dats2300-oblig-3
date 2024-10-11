@@ -203,6 +203,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
     // Removes the input node from the binary tree
     public void removeNode(Node<T> node) {
+
         // If Node doesnt have children
         if (node.venstre == null && node.høyre == null) {
             if (node.forelder == null) rot = null;
@@ -214,38 +215,40 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
                 node.forelder = null;
             }
             antall--;
+
             // If node have one child
-        } else if (node.venstre == null || node.høyre == null) {
-            if (node.venstre == null) {
-                if (node.forelder == null){
-                    rot = node.høyre;
-                } else {
-                    if (node.forelder.venstre == node) {
-                        node.forelder.venstre = node.høyre;
-                    } else {
-                        node.forelder.høyre = node.høyre;
-                    }
-                    node.høyre.forelder = node.forelder;
-                }
+        } else if (node.venstre == null) {
+            if (node.forelder == null){
+                rot = node.høyre;
             } else {
-                if (node.forelder == null) {
-                    rot = node.venstre;
+                if (node.forelder.venstre == node) {
+                    node.forelder.venstre = node.høyre;
                 } else {
-                    if (node.forelder.venstre == node) {
-                        node.forelder.venstre = node.venstre;
-                    } else {
-                        node.forelder.høyre = node.venstre;
-                    }
-                    node.venstre.forelder = node.forelder;
+                    node.forelder.høyre = node.høyre;
                 }
+                node.høyre.forelder = node.forelder;
             }
             antall--;
+
+        } else if (node.høyre == null){
+            if (node.forelder == null) {
+                rot = node.venstre;
+            } else {
+                if (node.forelder.venstre == node) {
+                    node.forelder.venstre = node.venstre;
+                } else {
+                    node.forelder.høyre = node.venstre;
+                }
+                node.venstre.forelder = node.forelder;
+            }
+            antall--;
+
             // If Node has two children, copy the value of the leftmost node of the right child and remove that node
-//        } else {
-//            Node<T> bottomNode = node.høyre;
-//            while(bottomNode.venstre != null) bottomNode = bottomNode.venstre;
-//            node.verdi = bottomNode.verdi;
-//            removeNode(bottomNode);
+        } else {
+            Node<T> bottomNode = node.høyre;
+            while(bottomNode.venstre != null) bottomNode = bottomNode.venstre;
+            node.verdi = bottomNode.verdi;
+            removeNode(bottomNode);
         }
     }
 
