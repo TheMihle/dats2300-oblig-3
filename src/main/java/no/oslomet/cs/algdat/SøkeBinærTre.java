@@ -197,7 +197,6 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         if (node == null) return false;
 
         removeNode(node);
-
         return true;
     }
 
