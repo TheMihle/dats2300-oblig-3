@@ -95,7 +95,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         Objects.requireNonNull(verdi);
         if (rot == null) {
             rot = new Node<>(verdi, null);
-            antall++;
+            antall++; endringer++;
             return true;
         }
 
@@ -119,10 +119,9 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             }
         }
 
-        antall++;
+        antall++; endringer++;
         return true;
     }
-
 
     // Oppgave 2
     // Returns the number of a certain value in the binary search tree
@@ -136,10 +135,8 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             int comparisonValue = comp.compare(verdi, node.verdi);
             if (comparisonValue < 0) {
                 node = node.venstre;
-            } else if (comparisonValue > 0) {
-                node = node.høyre;
             } else {
-                numberOfValue++;
+                if (comparisonValue == 0) numberOfValue++;
                 node = node.høyre;
             }
         }
