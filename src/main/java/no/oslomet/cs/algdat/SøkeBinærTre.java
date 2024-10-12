@@ -197,6 +197,26 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         return true;
     }
 
+
+    // Finds the first node with a certain value based on binarysearchtree  and returns it.
+    // Starts at root
+    private Node<T> findNode(T value) {
+        return findNode(rot, value);
+    }
+
+    // Finds the first node with a certain value based on binarysearchtree  and returns it.
+    // Starts at the node that is input in to it.
+    private Node<T> findNode(Node<T> node,T value) {
+
+        while (node != null) {
+            int compValue = comp.compare(value, node.verdi);
+            if (compValue < 0 ) node = node.venstre;
+            else if(compValue > 0) node = node.høyre;
+            else if (comp.compare(value,node.verdi) == 0) return node;
+        }
+        return null;
+    }
+
     // Removes the input node from the binary tree
     public void removeNode(Node<T> node) {
 
@@ -210,7 +230,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
                 node.forelder.høyre = null;
                 node.forelder = null;
             }
-            antall--;
+            antall--; endringer++;
 
             // If node have one child
         } else if (node.venstre == null) {
@@ -224,7 +244,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
                 }
                 node.høyre.forelder = node.forelder;
             }
-            antall--;
+            antall--; endringer++;
 
         } else if (node.høyre == null){
             if (node.forelder == null) {
@@ -237,7 +257,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
                 }
                 node.venstre.forelder = node.forelder;
             }
-            antall--;
+            antall--; endringer++;
 
             // If Node has two children, copy the value of the leftmost node of the right child and remove that node
         } else {
@@ -247,7 +267,6 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             removeNode(bottomNode);
         }
     }
-
 
     // Removes All nodes with a certain value. Returns number of nodes removed.
     public int fjernAlle(T verdi) {
@@ -264,18 +283,5 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
     public void nullstill() {
         while (rot != null) removeNode(førstePostorden(rot));
-    }
-
-    // Finds the first node with a certain value in inorder and returns it.
-    private Node<T> findNode(T value) {
-
-        Node<T> node = rot;
-        while (node != null) {
-            int compValue = comp.compare(value, node.verdi);
-            if (compValue < 0 ) node = node.venstre;
-            else if(compValue > 0) node = node.høyre;
-            else if (comp.compare(value,node.verdi) == 0) return node;
-        }
-        return null;
     }
 }
