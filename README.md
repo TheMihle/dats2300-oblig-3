@@ -52,5 +52,6 @@ Hadde vært mere effektivt å isteden gå gjennom treet på egenhånd og starte 
 slipper å gå gjennom treet hver gang.
 
 Metode nullstill()......
+Kjøre fjern() på første om og om igjen til treet er tomt er mye raskere enn å kjøre fjern() på rot intill det er tomt, da 
 
 

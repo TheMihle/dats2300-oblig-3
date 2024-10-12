@@ -197,7 +197,6 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         return true;
     }
 
-
     // Finds the first node with a certain value based on binarysearchtree  and returns it.
     // Starts at root
     private Node<T> findNode(T value) {
@@ -225,11 +224,10 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             if (node.forelder == null) rot = null;
             else if (node.forelder.venstre == node) {
                 node.forelder.venstre = null;
-                node.forelder = null;
             } else {
                 node.forelder.høyre = null;
-                node.forelder = null;
             }
+            node.forelder = null;
             antall--; endringer++;
 
             // If node have one child
@@ -244,6 +242,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
                 }
                 node.høyre.forelder = node.forelder;
             }
+            node.forelder = null;
             antall--; endringer++;
 
         } else if (node.høyre == null){
@@ -257,6 +256,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
                 }
                 node.venstre.forelder = node.forelder;
             }
+            node.forelder = null;
             antall--; endringer++;
 
             // If Node has two children, copy the value of the leftmost node of the right child and remove that node
@@ -282,6 +282,6 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     public void nullstill() {
-        while (rot != null) removeNode(førstePostorden(rot));
+        while (rot != null) removeNode(rot);
     }
 }
