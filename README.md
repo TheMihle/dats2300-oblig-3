@@ -51,7 +51,8 @@ Metode fjernAlle() kaller fjern() om og om igjen intil den returnerer false, og 
 Hadde vært mere effektivt å isteden gå gjennom treet på egenhånd og starte på samme plassering som forrige gang da man 
 slipper å gå gjennom treet hver gang.
 
-Metode nullstill()......
-Kjøre fjern() på første om og om igjen til treet er tomt er mye raskere enn å kjøre fjern() på rot intill det er tomt, da 
-
-
+Metode nullstill() bruker removeNode() på rotnoden intill rot er null. Da er treet tomt. Jeg testet at det er omtrent 
+25% tasere enn å kjøre removeNode() på førstePostorden() intill treet er tomt. selv om det betyr and man sletter noder 
+med to barn oftere istedenfor førstePostorden som alltid har null barn.
+Det hadde nok vært enda raskere å slette noder ved å legge dem inn i en kø/stack og ikke bry seg om at treet er 
+lovlig/flytte på noder mens man holder på.
