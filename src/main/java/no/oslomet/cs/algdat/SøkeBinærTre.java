@@ -234,6 +234,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         } else if (node.venstre == null) {
             if (node.forelder == null){
                 rot = node.høyre;
+                rot.forelder = null;
             } else {
                 if (node.forelder.venstre == node) {
                     node.forelder.venstre = node.høyre;
@@ -248,6 +249,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         } else if (node.høyre == null){
             if (node.forelder == null) {
                 rot = node.venstre;
+                rot.forelder = null;
             } else {
                 if (node.forelder.venstre == node) {
                     node.forelder.venstre = node.venstre;
