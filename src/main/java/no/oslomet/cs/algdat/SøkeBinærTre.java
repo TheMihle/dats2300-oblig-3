@@ -153,6 +153,18 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         return p;
     }
 
+    // Same code with loops instead of recursion:
+/*
+    private Node<T> førstePostorden(Node<T> p) {
+        if(p == null) return null;
+        while (true) {
+            if (p.venstre != null)  p = p.venstre;
+            else if (p.høyre != null)  p = p.høyre;
+            else return p;
+        }
+    }
+*/
+
     // Returns the next node in post order with recursion
     private Node<T> nestePostorden(Node<T> p) {
         if (p.forelder == null) return null;
