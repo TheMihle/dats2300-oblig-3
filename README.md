@@ -55,6 +55,7 @@ men det kan hende fordi test treet mitt ikke var stort nok/eller for kunstig lag
 
 Metode nullstill() går igjennom treet og setter alle pekere til null i postorden som vil si noder med ingen barn. 
 Trenger ikke bry seg om å koble om pekerne til nye lovlige tre som mellomsteg. Testet at det er omtrent 50% raskere enn 
-å slette rotnoden med lovlig mellomsteg intill alt er null.
+å slette rotnoden med lovlig mellomsteg intill alt er null. Testet at både å gjøre det i postorden å ikke ha lovlig tre 
+underveis begge deler bro til at den ble raskere.
 
 Lagde et alternativt som istedenfor rekusjon la til alle nodene til stack for så å gi alle pekerne, men det er tregere.
