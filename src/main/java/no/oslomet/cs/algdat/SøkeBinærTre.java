@@ -229,7 +229,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     // Removes the input node from the binary tree
-    public void removeNode(Node<T> node) {
+    private void removeNode(Node<T> node) {
 
         // If Node doesnt have children
         if (node.venstre == null && node.høyre == null) {
