@@ -1,9 +1,6 @@
 package no.oslomet.cs.algdat;
 
-import java.util.Objects;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class SøkeBinærTre<T>  implements Beholder<T> {
 
@@ -223,7 +220,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             int compValue = comp.compare(value, node.verdi);
             if (compValue < 0 ) node = node.venstre;
             else if(compValue > 0) node = node.høyre;
-            else if (comp.compare(value,node.verdi) == 0) return node;
+            else return node;
         }
         return null;
     }
@@ -282,20 +279,66 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         }
     }
 
-    // Removes All nodes with a certain value. Returns number of nodes removed.
+    // Removes all nodes with a value, but does not start at the start every time removes the bottom up
     public int fjernAlle(T verdi) {
-        boolean continueRemoving = true;
+        ArrayDeque<Node<T>> nodes = new ArrayDeque<>();
         int numberOfRemoved = 0;
 
-        while (continueRemoving) {
-            if (fjern(verdi)) {
-                numberOfRemoved++;
-            } else continueRemoving = false;
+        Node<T> node = findNode(verdi);
+
+        while (node != null) {
+            nodes.addLast(node);
+            node = findNode(node.høyre, verdi);
         }
+
+        while (!nodes.isEmpty()){
+            removeNode(nodes.removeLast());
+            numberOfRemoved++;
+        }
+
         return numberOfRemoved;
     }
 
+    // Removes all elements from the tree in post order and makes sure pointers are disconnected.
     public void nullstill() {
-        while (rot != null) removeNode(rot);
+        removeAllPointers(rot);
+        rot = null;
     }
+
+    private void removeAllPointers(Node<T> node) {
+        if (node == null) return;
+
+        removeAllPointers(node.venstre);
+        removeAllPointers(node.høyre);
+        node.forelder = null;
+        node.venstre = null;
+        node.høyre = null;
+        antall--; endringer++;
+    }
+
+
+    // Alternate solution with Queue, is slower than the recursive version
+   /* public void nullstill() {
+        ArrayDeque<Node<T>> nodes = new ArrayDeque<>();
+        addNodes(rot, nodes);
+
+        while (!nodes.isEmpty()) {
+            Node<T> nodeI = nodes.removeFirst();
+            nodeI.forelder = null;
+            nodeI.venstre = null;
+            nodeI.høyre = null;
+            antall--;
+        }
+
+        rot = null;
+    }
+
+    private void addNodes(Node<T> node,ArrayDeque<Node<T>> nodes) {
+        if (node != null) {
+            nodes.addLast(node);
+            if (node.venstre != null) addNodes(node.venstre, nodes);
+            if (node.høyre != null) addNodes(node.høyre, nodes);
+        }
+    }*/
+
 }
