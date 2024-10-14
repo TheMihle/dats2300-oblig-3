@@ -47,12 +47,14 @@ barn.
 Kan forråsake at treet blir ubalansert, kunne kanskje implementert metode som noen ganger går til venstre men måtte da ha 
 sjekk for like verdier, og Nikolai sa at vi ikke trenger å kunne kode det.
 
-Metode fjernAlle() kaller fjern() om og om igjen intil den returnerer false, og så returnerer antall som har blitt slettet.
-Hadde vært mere effektivt å isteden gå gjennom treet på egenhånd og starte på samme plassering som forrige gang da man 
-slipper å gå gjennom treet hver gang.
+Metode fjernAlle() kaller finnNode() for så å legge dem til en stabel. Hver gang starter FinnNode(node.høre) på den 
+neste noden istedenfor å starte på nytt hver gang. Til slutt slettes nodene fra treet fra bunnen og opp via stabelen.
 
-Metode nullstill() bruker removeNode() på rotnoden intill rot er null. Da er treet tomt. Jeg testet at det er omtrent 
-25% tasere enn å kjøre removeNode() på førstePostorden() intill treet er tomt. selv om det betyr and man sletter noder 
-med to barn oftere istedenfor førstePostorden som alltid har null barn.
-Det hadde nok vært enda raskere å slette noder ved å legge dem inn i en kø/stack og ikke bry seg om at treet er 
-lovlig/flytte på noder mens man holder på.
+Det skal være raskere enn å kjøre fjern() intill den returerer false, nåre jeg prøvde å teste dette, stemte ikke dette, 
+men det kan hende fordi test treet mitt ikke var stort nok/eller for kunstig lagd.
+
+Metode nullstill() går igjennom treet og setter alle pekere til null i postorden som vil si noder med ingen barn. 
+Trenger ikke bry seg om å koble om pekerne til nye lovlige tre som mellomsteg. Testet at det er omtrent 50% raskere enn 
+å slette rotnoden med lovlig mellomsteg intill alt er null.
+
+Lagde et alternativt som istedenfor rekusjon la til alle nodene til stack for så å gi alle pekerne, men det er tregere.
