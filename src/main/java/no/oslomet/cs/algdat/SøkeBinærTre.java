@@ -230,8 +230,8 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
         // If Node doesn't have children
         if (node.venstre == null && node.høyre == null) {
-            if (node.forelder == null) rot = null;
-            else if (node.forelder.venstre == node) {
+            if (node.forelder == null) rot = null;          // If node is root
+            else if (node.forelder.venstre == node) {       // If node is left child
                 node.forelder.venstre = null;
             } else {
                 node.forelder.høyre = null;
@@ -241,7 +241,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
             // If node have one child
         } else if (node.venstre == null) {
-            if (node.forelder == null){
+            if (node.forelder == null){                     // If node is root
                 rot = node.høyre;
                 rot.forelder = null;
             } else {
@@ -255,8 +255,8 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             node.forelder = null;
             antall--; endringer++;
 
-        } else if (node.høyre == null){
-            if (node.forelder == null) {
+        } else if (node.høyre == null) {
+            if (node.forelder == null) {                    // If node is root
                 rot = node.venstre;
                 rot.forelder = null;
             } else {
