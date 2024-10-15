@@ -172,12 +172,11 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
     // Oppgave 4
     // Do the input task in post order on the binary tree. Using methods from
-    @SuppressWarnings("unchecked")
     public void postOrden(Oppgave<? super T> oppgave) {
 
-        Node node = førstePostorden(rot);
+        Node<T> node = førstePostorden(rot);
         while (node != null) {
-            oppgave.utførOppgave((T) node.verdi);
+            oppgave.utførOppgave(node.verdi);
             node = nestePostorden(node);
         }
     }
