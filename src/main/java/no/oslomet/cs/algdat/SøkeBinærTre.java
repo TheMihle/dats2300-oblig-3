@@ -239,38 +239,28 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             node.forelder = null;
             antall--; endringer++;
 
-            // If node have one child
-        } else if (node.venstre == null) {
-            if (node.forelder == null){                     // If node is root
-                rot = node.høyre;
-                rot.forelder = null;
-            } else {
-                if (node.forelder.venstre == node) {
-                    node.forelder.venstre = node.høyre;
-                } else {
-                    node.forelder.høyre = node.høyre;
-                }
-                node.høyre.forelder = node.forelder;
-            }
-            node.forelder = null;
-            antall--; endringer++;
+            // If node have one child move the child upwards
+        } else if(node.venstre == null || node.høyre == null) {
+            Node<T> barn;
+            if (node.venstre != null) barn = node.venstre;
+            else barn = node.høyre;
 
-        } else if (node.høyre == null) {
             if (node.forelder == null) {                    // If node is root
-                rot = node.venstre;
-                rot.forelder = null;
+                rot = barn;
+                barn.forelder = null;
             } else {
                 if (node.forelder.venstre == node) {
-                    node.forelder.venstre = node.venstre;
+                    node.forelder.venstre = barn;
                 } else {
-                    node.forelder.høyre = node.venstre;
+                    node.forelder.høyre = barn;
                 }
-                node.venstre.forelder = node.forelder;
+                barn.forelder = node.forelder;
             }
             node.forelder = null;
             antall--; endringer++;
 
-            // If Node has two children, copy the value of the leftmost node of the right child and remove that node
+            // If Node has two children, copy the value of the leftmost node of the right child (next inorden) and
+            // remove that node
         } else {
             Node<T> bottomNode = node.høyre;
             while(bottomNode.venstre != null) bottomNode = bottomNode.venstre;
