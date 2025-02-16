@@ -1,20 +1,21 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/teLsEufN)
 
+# DATS2300 Oblig 3
+Noen endringer ble gjort etter delivery av oblig.
 Er ingen template her som i forrige, men oblig arket sier at det skal skrives Readme:
 
-# Oppgave 1
+## Oppgave 1
 Metoden leggInn() legger inn en verdi i det binære søketreet ved en iterativ loop. For hver gang sammenligner den verdi med den 
 noden den er på. Hvis verdi er mindre, velges venstre barn som element for neste loop. Ellers velger høyre barn. 
 Når neste barn er null, oprettes en ny node der med verdien, og loopen brytes. Hvis rot er null lages det en ny node med 
 verdien som rot før loopen i det hele tatt starter.
 
-# Oppgave 2
+## Oppgave 2
 Metoden antall() leter gjennom binære søketreet iterativt med loop på samme måte som leggInn() bare at hver gang den 
 kommer til det tallet den leter etter, øker den en tallet. En verdi til høyre barn kan være den samme verdien. Og når 
 den når null stopper loopen. Antall ganger den fant tallet returneres til slutt.
 Hvis verdi er null eller rot er null, returnerer den 0 før loopen i det hele tatt starter da det da ikke kan finnes.
 
-# Oppgave 3
+## Oppgave 3
 Metoden førstePostorden() Går gjennom treet rekursivt ved å følge postorden ved å prioritere å gå til venste barn, og 
 ellers høyre barn intill den ikke er noen barn, da er det første post orden og den returnerer seg selv oppover.
 
@@ -24,14 +25,14 @@ Hvis noden er forelder høyre barn, eller forelder ikke har noen høyre barn, er
 Hvis noden er venstre barn og forelder har et høyre barn, er neste node den lengst ned til venstre (så høyre hvis ingen 
 venstrebarn) fra høyrebarnet til forrelder. Derfor kan man bare kalle på nestePostorden på forelder.høyre.
 
-# Oppgave 4
+## Oppgave 4
 Metoden postOrden() looper gjennom nodene i treet i postOrden og gjør oppgave på node verdien via å kalle 
 førstePostorden() en gang og nestePostorden() i en loop.
 
 Metoden postOrdenRekursiv(Node, Oppgave) looper gjennom postorden rekursivt å gjør oppgave på nodene via at den er 
 etter metoden er kalt igjen på barna. 
 
-# Oppgave 5
+## Oppgave 5
 Metoden fjern() sletter første element med en verdi i treet. Jeg delte opp funskjonen i findNode() og removeNode() da de 
 er mere generelle. fjern() finner noden via findNode() for så og slette via removeNode() hvis node med verdien eksisterer.
 
